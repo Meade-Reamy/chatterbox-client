@@ -5,6 +5,7 @@
     <title>chatterbox</title>
     <link rel="stylesheet" href="client/styles/styles.css">
     <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/timeago/jquery.timeago.js"></script>
     <script src="node_modules/underscore/underscore.js"></script>
     <script>
       // DO NOT MODIFY THIS CODE
@@ -19,6 +20,11 @@
         search += 'username=' + (prompt('What is your name?') || 'anonymous');
         window.location.search = search;
       }
+    </script>
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+        $("time.timeago").timeago();
+      });
     </script>
   </head>
   <body>
@@ -47,6 +53,7 @@
     <script src="client/scripts/messageView.js"></script>
     <script src="client/scripts/messagesView.js"></script>
     <script src="client/scripts/app.js"></script>
+    <!-- <script>$('body').css('background-image', 'url(https://i1.sndcdn.com/artworks-000574284278-cmj11e-t240x240.jpg)')</script> -->
     <script>
       $(() => App.initialize());
     </script>

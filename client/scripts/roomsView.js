@@ -16,17 +16,25 @@ var RoomsView = {
 
   render: function() {
     var data = Messages._data;
+    if (!this.uniqueRooms.Allrooms) {
+      var Allrooms = 'All Rooms';
+      var $AllroomsSelection = $('<option></option>');
+      $AllroomsSelection.attr('value', 'null');
+      $AllroomsSelection.text(Allrooms);
+      this.$select.append($AllroomsSelection);
+      this.uniqueRooms.Allrooms = true;
+    }
     for (let elem in data) {
       var currentRoom = data[elem].roomname;
       if (this.uniqueRooms[data[elem].roomname] !== true) {
         this.uniqueRooms[data[elem].roomname] = true;
         var room = data[elem].roomname;
-        var $selection = $(`<option></option>`);
+        var $selection = $('<option></option>');
         if (room === null) {
           room = 'null';
         }
         $selection.attr('value', room);
-        $selection.text(room);
+        $selection.text(room.substring(0, 20));
         this.$select.append($selection);
 
       }
@@ -44,6 +52,8 @@ var RoomsView = {
     // TODO: Handle a user selecting a different room.
     var change = function() {
       MessagesView.currentRoom = this.$select.val();
+      $('#chats').empty();
+      MessagesView.render();
     };
     this.$select.on('change', change.bind(this));
   },

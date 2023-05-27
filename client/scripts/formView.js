@@ -14,9 +14,11 @@ var FormView = {
     // Stop the browser from submitting the form
     event.preventDefault();
     var $input = $('#message');
+    var room = RoomsView.$select.val();
+    room = room === 'null' ? null : room;
     var data = {
       username: App.username,
-      roomname: RoomsView.$select.val(),
+      roomname: room,
       text: $input.val()
     };
     Parse.create(data, function() {

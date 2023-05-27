@@ -19,26 +19,63 @@ var MessagesView = {
       }
     }
 
-    setTimeout(function() {
+    // setTimeout(function() {
+    //   $('#chats').empty();
+    //   App.fetch();
+    // }, 5000);
+  },
+
+  createTemplate: function(message) {
+    var $message = $('<div class="chat"></div>');
+    var $user = $('<div></div>');
+    var $handle = $('<div class="userhandle"></div>');
+    var $username = $('<div class="username"></div>');
+    var $text = $('<div class="messagetext"></div>');
+    var $room = $('<div class="roomname"></div>');
+    var $timeago = $('<time class="timeago">just now</time>');
+    $message.on('click', function() {
+      Friends.toggleFriend(message.username);
       $('#chats').empty();
-      App.fetch();
-    }, 5000);
+      MessagesView.render();
+    });
+    $handle.text('@' + message.github_handle);
+    $room.text(message.roomname);
+    $message.append($room);
+    $username.text(message.username);
+    $text.text(message.text);
+    $user.append($username);
+    $user.append($handle);
+    $timeago.attr('class', 'timeago');
+    $timeago.attr('datetime', message.created_at);
+    $timeago.timeago('update', message.created_at);
+    $message.append($user);
+    $message.append($text);
+    $message.append($timeago);
+    if (Friends.checkFriend(message.username)) {
+      $username.css('color', 'rgb(255, 120, 253)');
+    }
+    return $message;
+  },
+
+  renderTimeago: function() {
+    // var $allChats = ('#chats').children();
+    // for (let i = 0; i < $allChats.length; i++) {
+
+    // }
+    $('.timeago').timeago();
   },
 
   renderMessage: function(message) {
     // TODO: Render a single message.
-    var template = MessageView.render({
-      username: message.username,
-      message: message.text
-    });
-    var $message = $('<div class="chat"></div>');
-    var $username = $('<div class="username"></div>');
-    var $text = $('<div></div>');
-    $username.text(message.username);
-    $text.text(message.text);
-    $message.append($username);
-    $message.append($text);
-    $('#chats').append($message);
+    $('#chats').append(this.createTemplate(message));
+  },
+
+  renderNewMessages: function(messages) {
+    for (let i = 0; i < messages.length; i++) {
+      if (this.currentRoom === 'null' || messages[i].roomname === this.currentRoom) {
+        $('#chats').prepend(this.createTemplate(messages[i]));
+      }
+    }
   },
 
   handleClick: function(event) {
