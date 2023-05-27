@@ -4,18 +4,17 @@
 var MessagesView = {
 
   $chats: $('#chats'),
-
+  currentRoom: 'null',
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
   },
   //<script>$('body').css("background-image", 'url(https://i.pinimg.com/originals/e9/bd/71/e9bd71bac8e86ffa192dec224a3ee16f.png)')</script>
-  render: function(data, roomname) {
+  render: function(data) {
     // TODO: Render _all_ the messages.
     var messages = Messages._data;
-    console.log('data: ', messages);
     for (let elem in messages) {
-      if (messages[elem].roomname === roomname || roomname === undefined) {
+      if (this.currentRoom === 'null' || messages[elem].roomname === this.currentRoom) {
         MessagesView.renderMessage(messages[elem]);
       }
     }

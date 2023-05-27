@@ -21,12 +21,11 @@ var Parse = {
     });
   },
 
-/* var message = {
-  username: 'shawndrost',
-  text: 'trololo',
-  roomname: '4chan',
-};
-*/
+  /* var message = {
+    username: 'shawndrost',
+    text: 'trololo',
+    roomname: '4chan',
+  };*/
   readAll: function(successCB, errorCB = null) {
     $.ajax({
       url: Parse.server,

@@ -16,7 +16,7 @@ var FormView = {
     var $input = $('#message');
     var data = {
       username: App.username,
-      roomname: null,
+      roomname: RoomsView.$select.val(),
       text: $input.val()
     };
     Parse.create(data, function() {

@@ -28,7 +28,8 @@ var App = {
       // examine the response from the server request:
       //console.log(data);
       Messages._data = data;
-      MessagesView.render(data);
+      MessagesView.render();
+      RoomsView.render(data);
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
     });
